@@ -168,6 +168,7 @@ export class FlightLookaheadComponent implements OnInit, OnDestroy {
     // RxJS 7
     this.flights$ = combineLatest({ input: input$, online: this.online$ }).pipe(
       filter((combined) => combined.online),
+      // distinctUntilChanged((p, c) => p.input === c.input),
       funWithTap(),
       tap(() => this.loading$.next(true)),
       switchMap((combined) => this.load(combined.input)),
